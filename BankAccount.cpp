@@ -1,5 +1,5 @@
 //Name: Ethan Hofsteen
-//Date: 2/7/26.
+//Date: 2/22/26.
 //Class: MSCI-272
 //Purpose: Define Functions that are used in main.cpp and outlined in BankAccount.h
 
@@ -124,11 +124,12 @@ int BankAccount::PrintDisplay() {
     std::cout << "3. Withdraw from Account" <<std::endl;
     std::cout << "4. Display all Accounts" <<std::endl;
     std::cout << "5. Compare Accounts" <<std::endl;
-    std::cout << "6. Exit Program" <<std::endl;
+    std::cout << "6. Apply Interest to Savings Account" <<std::endl;
+    std::cout << "7. Exit Program" <<std::endl;
     std::cout << "Enter choice (1-6): ";
     std::cin >> MenuChoice;
-    while (MenuChoice < 1 || MenuChoice > 6) {
-        std::cout << "Invalid Choice, Try again (1-6): " << std::endl;
+    while (MenuChoice < 1 || MenuChoice > 7) {
+        std::cout << "Invalid Choice, Try again (1-7): " << std::endl;
         std::cin >> MenuChoice;
     }
     return MenuChoice;

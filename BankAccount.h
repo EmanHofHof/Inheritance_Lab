@@ -1,5 +1,5 @@
 //Name: Ethan Hofsteen
-//Date: 2/7/26
+//Date: 2/22/26
 //Class: MSCI-272
 //Purpose: Outline Functions that will be used in main and defined in BankAccount.cpp
 
@@ -46,6 +46,10 @@ public:
     static std::unique_ptr<BankAccount> createAccountFromInput();
     static int PrintDisplay();
     static int ComparisonDisplay();
+    virtual void calculateInterest() {
+        // Default for generic accounts or checking accounts
+        std::cout << "Interest is not applicable for this account type." << std::endl;
+    }
 protected:
     double balance;
 private:

@@ -1,6 +1,7 @@
-//
-// Created by Ethan Hofsteen on 2/21/26.
-//
+//Name: Ethan Hofsteen
+//Date: 2/22/26.
+//Class: MSCI-272
+//Purpose: Define calculateInterest Function and constructor for SavingsAccount Class
 #include <iostream>
 #include "SavingsAccount.h"
 

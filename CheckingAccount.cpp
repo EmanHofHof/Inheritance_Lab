@@ -1,6 +1,7 @@
-//
-// Created by Ethan Hofsteen on 2/21/26.
-//
+//Name: Ethan Hofsteen
+//Date: 2/22/26.
+//Class: MSCI-272
+//Purpose: override the withdraw function for checking accounts and defines checking Account constructor
 #include "BankAccount.h"
 #include "CheckingAccount.h"
 //withdrawal implementation

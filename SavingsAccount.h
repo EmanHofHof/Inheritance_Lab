@@ -1,6 +1,7 @@
-//
-// Created by Ethan Hofsteen on 2/21/26.
-//
+//Name: Ethan Hofsteen
+//Date: 2/22/26.
+//Class: MSCI-272
+//Purpose: Define Functions that are used in main.cpp and outlined in BankAccount.h
 
 #ifndef INHERITANCE_LAB_SAVINGSACCOUNT_H
 #define INHERITANCE_LAB_SAVINGSACCOUNT_H
@@ -11,7 +12,7 @@ public:
     //Constructor
     SavingsAccount(std::string ID, std::string name, double balance, double interest);
     //interest Function
-    void calculateInterest();
+    void calculateInterest() override;
 private:
     double interestRate;
 };

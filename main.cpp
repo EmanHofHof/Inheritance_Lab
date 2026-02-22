@@ -1,5 +1,5 @@
 //Name: Ethan Hofsteen
-//Date: 2/1/26
+//Date: 2/22/26
 //Class: MSCI-272
 //Purpose: Use a class and operator overloading to organize Bank Accounts within a Vector
 //and deposit, withdraw, deposit, and compare those Bank Accounts
@@ -174,10 +174,25 @@ int main() {
                     }
                     break;
                 }
-                    case 6: {
-                        std::cout << "Thank You For Trying My Program" << std::endl;
+                //Apply Interest
+                case 6: {
+                    if (accounts.empty()) {
+                        std::cout << "No Accounts Created" << std::endl;
+                        std::cout << "Create a Savings Account before Applying Interest" << std::endl;
                     }
+                    std::string SearchID;
+                    std::cout << "Enter Savings Account ID to Apply Interest: " << std::endl;
+                    std::cin >> SearchID;
+                    int index = FindAccountbyID(accounts, SearchID);
+                    if (index != -1) {
+                        accounts.at(index)->calculateInterest();
+                    }
+                    break;
+                }
+                case 7: {
+                    std::cout << "Thank You For Trying My Program" << std::endl;
+                }
             }
-        }while (choice != 6);
+        }while (choice != 7);
         return 0;
     }

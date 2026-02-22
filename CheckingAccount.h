@@ -1,6 +1,7 @@
-//
-// Created by Ethan Hofsteen on 2/21/26.
-//
+//Name: Ethan Hofsteen
+//Date: 2/22/26.
+//Class: MSCI-272
+//Purpose: Outline the Checking Account Class.
 
 #ifndef INHERITANCE_LAB_CHECKINGACCOUNT_H
 #define INHERITANCE_LAB_CHECKINGACCOUNT_H
