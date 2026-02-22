@@ -5,11 +5,12 @@
 //and deposit, withdraw, deposit, and compare those Bank Accounts
 #include <iostream>
 #include <vector>
+#include <memory>
 #include "BankAccount.h"
 //searches through accounts vector by ID (returns corresponding vector index)
-int FindAccountbyID(const std::vector<BankAccount>& accounts, const std::string accNum) {
+int FindAccountbyID(const std::vector<std::unique_ptr<BankAccount>>& accounts, const std::string accNum) {
         for (int i = 0; i < accounts.size(); ++i) {
-            if (accounts.at(i).GetAccountNum() == accNum) {
+            if (accounts.at(i)->GetAccountNum() == accNum) {
                 std::cout << "Account Found" << std::endl;
                 return i;
             }
@@ -18,10 +19,10 @@ int FindAccountbyID(const std::vector<BankAccount>& accounts, const std::string 
     return -1;
 }
 //searches through accounts vector by Name (returns corresponding vector index)
-int FindAccountbyName(const std::vector<BankAccount>& accounts, const std::string accName) {
+int FindAccountbyName(const std::vector<std::unique_ptr<BankAccount>>& accounts, const std::string accName) {
     for (int i = 0; i < accounts.size(); ++i) {
-        std::string storedName = accounts.at(i).GetAccountHolderName();
-        if (accounts.at(i).GetAccountHolderName() == accName) {
+        std::string storedName = accounts.at(i)->GetAccountHolderName();
+        if (accounts.at(i)->GetAccountHolderName() == accName) {
             std::cout << "Account Found" << std::endl;
             return i;
         }
@@ -30,14 +31,16 @@ int FindAccountbyName(const std::vector<BankAccount>& accounts, const std::strin
     return -1;
 }
 int main() {
-    std::vector<BankAccount> accounts;
+    std::vector<std::unique_ptr<BankAccount>> accounts;
     int choice;
         do {
             choice = BankAccount::PrintDisplay();
             switch (choice) {
                 //New Account Creation
                 case 1:{
-                    accounts.push_back(BankAccount::createAccountFromInput());
+                    //All logic written in BankAccount.cpp
+                    std::unique_ptr<BankAccount> newAccount = BankAccount::createAccountFromInput();
+                    accounts.push_back(std::move(newAccount));
                     break;
                 }
                     //Deposit to existing account
@@ -57,7 +60,7 @@ int main() {
                                     std::cin >> depositAmount;
                                 }
                             }
-                            accounts.at(index) += depositAmount;              //.Deposit(depositAmount);
+                            *accounts.at(index) += depositAmount;              //.Deposit(depositAmount);
                         }
                     break;
                 }
@@ -79,11 +82,11 @@ int main() {
                                 }
                             }
                             //ensure withdrawal is less than account balance
-                            if (withdrawAmount > accounts.at(index).GetBalance()) {
+                            if (withdrawAmount > accounts.at(index)->GetBalance()) {
                                 std::cout << "---Insufficient Funds---" << std::endl;
                                 break;
                             }
-                            accounts.at(index) -= withdrawAmount;
+                            *accounts.at(index) -= withdrawAmount;
                         }
                     break;
                 }
@@ -92,7 +95,7 @@ int main() {
                     std::cout << "--------------------" << std::endl;
                     //loop through accounts vector
                     for (int i = 0; i < accounts.size(); ++i) {
-                        BankAccount::printAccount(accounts.at(i));
+                        BankAccount::printAccount(*accounts.at(i));
                     }
                     break;
                 }
@@ -112,10 +115,10 @@ int main() {
                             std::cout << "Enter 2nd Account Name: "; getline(std::cin,Searchindex2);
                             int index2 = FindAccountbyName(accounts, Searchindex2);
                             if (index1 != -1 && index2 != -1) {
-                                if (accounts.at(index1) == accounts.at(index2)) {
+                                if (*accounts.at(index1) == *accounts.at(index2)) {
                                     std::cout << "Account Numbers are Identical" << std::endl;
-                                    std::cout << accounts.at(index1).GetAccountHolderName() << " has the same ID as ";
-                                    std::cout << accounts.at(index2).GetAccountHolderName() << std::endl;
+                                    std::cout << accounts.at(index1)->GetAccountHolderName() << " has the same ID as ";
+                                    std::cout << accounts.at(index2)->GetAccountHolderName() << std::endl;
                                 }
                                 else {
                                     std::cout << "Account Numbers are Not Identical" << std::endl;
@@ -134,13 +137,13 @@ int main() {
                             std::cout << "Enter 2nd Account ID: "; std::cin >> Searchindex2;
                             int index2 = FindAccountbyID(accounts, Searchindex2);
                             if (index1 != -1 && index2 != -1) {
-                                if (accounts.at(index1) < accounts.at(index2)) {
-                                    std::cout << accounts.at(index1).GetAccountHolderName() << " has a lower balance than ";
-                                    std::cout << accounts.at(index2).GetAccountHolderName() << std::endl;
+                                if (*accounts.at(index1) < *accounts.at(index2)) {
+                                    std::cout << accounts.at(index1)->GetAccountHolderName() << " has a lower balance than ";
+                                    std::cout << accounts.at(index2)->GetAccountHolderName() << std::endl;
                                 }
                                 else {
-                                    std::cout << accounts.at(index1).GetAccountHolderName() << " does not have a lower balance than ";
-                                    std::cout << accounts.at(index2).GetAccountHolderName() << std::endl;
+                                    std::cout << accounts.at(index1)->GetAccountHolderName() << " does not have a lower balance than ";
+                                    std::cout << accounts.at(index2)->GetAccountHolderName() << std::endl;
                                 }
                             }
                             break;
@@ -153,13 +156,13 @@ int main() {
                             std::cout << "Enter 2nd Account ID: "; std::cin >> Searchindex2;
                             int index2 = FindAccountbyID(accounts, Searchindex2);
                             if (index1 != -1 && index2 != -1) {
-                                if (accounts.at(index1) > accounts.at(index2)) {
-                                    std::cout << accounts.at(index1).GetAccountHolderName() << " has a higher balance than ";
-                                    std::cout << accounts.at(index2).GetAccountHolderName() << std::endl;
+                                if (*accounts.at(index1) > *accounts.at(index2)) {
+                                    std::cout << accounts.at(index1)->GetAccountHolderName() << " has a higher balance than ";
+                                    std::cout << accounts.at(index2)->GetAccountHolderName() << std::endl;
                                 }
                                 else {
-                                    std::cout << accounts.at(index1).GetAccountHolderName() << " does not have a higher balance than ";
-                                    std::cout << accounts.at(index2).GetAccountHolderName() << std::endl;
+                                    std::cout << accounts.at(index1)->GetAccountHolderName() << " does not have a higher balance than ";
+                                    std::cout << accounts.at(index2)->GetAccountHolderName() << std::endl;
                                 }
                             }
                             break;

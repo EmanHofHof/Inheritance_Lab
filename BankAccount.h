@@ -30,26 +30,27 @@ public:
     void SetAccountHolderName(std::string Name) { accountHolderName = Name; };
     //operator overloading functions (Withdraw/Deposit)
     BankAccount& operator+=(double amount);
-    BankAccount& operator-=(double amount);
+    virtual BankAccount& operator-=(double amount);
     //comparison operator functions
     bool operator==(const BankAccount& other) const;
     bool operator<(const BankAccount& other) const;
     bool operator>(const BankAccount& other) const;
     //Destructor
-    ~BankAccount();
+    virtual ~BankAccount() = default;
     //Copy Constructor
     BankAccount(const BankAccount& other);
     //Copy Assignment Operator
     BankAccount& operator=(const BankAccount& other);
     //Static Functions
     static void printAccount(const BankAccount& account);
-    static BankAccount createAccountFromInput();
+    static std::unique_ptr<BankAccount> createAccountFromInput();
     static int PrintDisplay();
     static int ComparisonDisplay();
+protected:
+    double balance;
 private:
     std::string accountNumber;
     std::string accountHolderName;
-    double balance;
 };
 
 

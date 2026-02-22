@@ -5,4 +5,8 @@ set(CMAKE_CXX_STANDARD 20)
 
 add_executable(Inheritance_Lab main.cpp
         BankAccount.cpp
-        BankAccount.h)
+        BankAccount.h
+        CheckingAccount.cpp
+        CheckingAccount.h
+        SavingsAccount.cpp
+        SavingsAccount.h)
